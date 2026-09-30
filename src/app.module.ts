@@ -7,12 +7,7 @@ import { RsvpModule } from './modules/rsvp/rsvp.module';
 import { PrismaModule } from './prisma/prisma.module';
 
 @Module({
-  imports: [
-    PrismaModule, 
-    GuestsModule, 
-    WishesModule, 
-    RsvpModule
-  ],
+  imports: [PrismaModule, GuestsModule, WishesModule, RsvpModule],
   controllers: [AppController],
   providers: [AppService],
 })

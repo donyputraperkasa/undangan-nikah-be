@@ -1,31 +1,28 @@
-import {
-    Body,
-    Controller,
-    Get,
-    Param,
-    Post,
-} from '@nestjs/common';
-
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { CreateGuestDto } from './dto/create-guest.dto';
 import { GuestsService } from './guests.service';
 
-@Controller('guests')
+@ApiTags('Guests / Invitation')
+@Controller(['guests', 'invitation'])
 export class GuestsController {
-    constructor(
-        private readonly guestsService: GuestsService,
-    ) {}
+  constructor(private readonly guestsService: GuestsService) {}
 
-    @Get()
-    findAll() {
-        return this.guestsService.findAll();
-    }
+  @ApiOperation({ summary: 'Mendapatkan semua daftar tamu undangan' })
+  @Get()
+  findAll() {
+    return this.guestsService.findAll();
+  }
 
-    @Get(':slug')
-    findBySlug(@Param('slug') slug: string) {
-        return this.guestsService.findBySlug(slug);
-    }
+  @ApiOperation({ summary: 'Mendapatkan informasi tamu berdasarkan slug' })
+  @Get(':slug')
+  findBySlug(@Param('slug') slug: string) {
+    return this.guestsService.findBySlug(slug);
+  }
 
-    @Post()
-    create(@Body() body: any) {
-        return this.guestsService.create(body);
-    }
+  @ApiOperation({ summary: 'Membuat data tamu undangan baru' })
+  @Post()
+  create(@Body() createGuestDto: CreateGuestDto) {
+    return this.guestsService.create(createGuestDto);
+  }
 }
